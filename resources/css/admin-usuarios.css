@@ -1,0 +1,408 @@
+/* Admin Usuarios - Estilos Específicos */
+
+/* Section Header */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 0;
+  border-bottom: 2px solid var(--dark-border);
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.section-header:first-child {
+  margin-top: 0;
+}
+
+.section-header i {
+  font-size: 1.25rem;
+  color: var(--primary-blue);
+}
+
+.section-header h6 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+/* Teléfonos dinámicos */
+.telefono-item {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn-remove-telefono {
+  height: 38px;
+}
+
+.btn-remove-telefono:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Password Input Group */
+.password-input-group {
+  position: relative;
+}
+
+.btn-toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.btn-toggle-password:hover {
+  color: var(--primary-blue);
+}
+
+/* Estado Options */
+.estado-options {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.form-check-inline {
+  margin-right: 0;
+}
+
+.badge-estado {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.badge-activo {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success);
+}
+
+.badge-inactivo {
+  background: rgba(156, 163, 175, 0.15);
+  color: var(--text-muted);
+}
+
+.badge-suspendido {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--danger);
+}
+
+.form-check-input:checked + .form-check-label .badge-estado {
+  border-color: currentColor;
+  box-shadow: 0 0 0 0.25rem rgba(14, 165, 233, 0.15);
+}
+
+/* Roles Grid */
+.roles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.role-card {
+  position: relative;
+}
+
+.role-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.role-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  background: var(--dark-bg);
+  border: 2px solid var(--dark-border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.role-label i {
+  font-size: 2rem;
+}
+
+.role-label strong {
+  color: var(--text-light);
+  font-size: 1rem;
+}
+
+.role-label small {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.role-card input:checked + .role-label {
+  border-color: var(--primary-blue);
+  background: rgba(14, 165, 233, 0.1);
+  box-shadow: 0 0 0 0.25rem rgba(14, 165, 233, 0.15);
+}
+
+.role-label:hover {
+  border-color: var(--primary-blue);
+  transform: translateY(-2px);
+}
+
+/* Permisos Container */
+.permisos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.permiso-module {
+  background: var(--dark-bg);
+  border: 1px solid var(--dark-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.permiso-module h6 {
+  margin-bottom: 1rem;
+  color: var(--text-light);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.permiso-module h6 i {
+  color: var(--primary-blue);
+}
+
+.permisos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.permisos-grid .form-check {
+  background: var(--dark-card);
+  border: 1px solid var(--dark-border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.permisos-grid .form-check:hover {
+  border-color: var(--primary-blue);
+}
+
+.permisos-grid .form-check-input:checked ~ .form-check-label {
+  color: var(--primary-blue);
+}
+
+.permisos-grid .form-check-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.permiso-danger .form-check-input:checked ~ .form-check-label {
+  color: var(--danger);
+}
+
+.permiso-danger:hover {
+  border-color: var(--danger) !important;
+}
+
+/* User Header Info */
+.user-header-info {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: var(--dark-bg);
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--primary-blue);
+}
+
+.user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Teléfonos Badge */
+.telefonos-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(14, 165, 233, 0.15);
+  color: var(--primary-blue);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.telefonos-badge:hover {
+  background: rgba(14, 165, 233, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Role Badge */
+.badge-rol {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid;
+}
+
+.badge-rol-administrador {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--warning);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.badge-rol-cliente {
+  background: rgba(14, 165, 233, 0.15);
+  color: var(--primary-blue);
+  border-color: rgba(14, 165, 233, 0.3);
+}
+
+.badge-rol-vendedor {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.badge-rol-tecnico {
+  background: rgba(6, 182, 212, 0.15);
+  color: var(--info);
+  border-color: rgba(6, 182, 212, 0.3);
+}
+
+/* Tooltip Teléfonos */
+.telefonos-tooltip {
+  position: relative;
+}
+
+.telefonos-list {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--dark-card);
+  border: 1px solid var(--dark-border);
+  border-radius: 8px;
+  padding: 0.75rem;
+  min-width: 200px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: none;
+}
+
+.telefonos-tooltip:hover .telefonos-list {
+  display: block;
+}
+
+.telefonos-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.telefonos-list li {
+  padding: 0.5rem;
+  color: var(--text-light);
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.telefonos-list li i {
+  color: var(--primary-blue);
+}
+
+/* Action Button Extended */
+.btn-action.btn-roles {
+  background: var(--warning);
+  border-color: var(--warning);
+  color: white;
+}
+
+.btn-action.btn-roles:hover {
+  background: #d97706;
+  border-color: #d97706;
+}
+
+.btn-action.btn-estado {
+  background: var(--info);
+  border-color: var(--info);
+  color: white;
+}
+
+.btn-action.btn-estado:hover {
+  background: #0891b2;
+  border-color: #0891b2;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .roles-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .permisos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .user-header-info {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .estado-options {
+    flex-direction: column;
+  }
+
+  .section-header {
+    flex-wrap: wrap;
+  }
+}
