@@ -45,7 +45,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <input type="file" id="imagen1" name="imagenes[]" accept="image/*"
+                                <input type="file" id="imagen1" name="imagen_1" accept="image/*"
                                     style="display: none" />
                             </div>
                             <div class="col-md-6">
@@ -62,7 +62,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <input type="file" id="imagen2" name="imagenes[]" accept="image/*"
+                                <input type="file" id="imagen2" name="imagen_2" accept="image/*"
                                     style="display: none" />
                             </div>
                         </div>

@@ -31,10 +31,10 @@ export default defineConfig({
 
                 'resources/js/categorias/principal.js',
                 'resources/js/materiales/principal.js',
+                'resources/js/productos/principal.js',
 
                 'resources/js/admin-cotizaciones.js',
                 'resources/js/admin-pedidos.js',
-                'resources/js/admin-productos.js',
                 'resources/js/admin-usuarios.js',
                 'resources/js/categoria.js',
             ],

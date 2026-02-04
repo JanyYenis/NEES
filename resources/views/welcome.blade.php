@@ -41,89 +41,34 @@
             </div>
 
             <div class="row g-4">
-                <!-- Product 1 -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="product-card" onclick="window.location.href='producto.html?id=puerta-industrial-001'">
-                        <div class="product-image-wrapper">
-                            <img src="{{ asset('build/img/modern-industrial-metal-door-in-architectural-sett.jpg') }}" class="product-image-main" alt="Puerta Industrial Moderna">
-                            <img src="{{ asset('build/img/modern-metal-door-industrial-design.jpg') }}" class="product-image-hover" alt="Puerta Industrial Vista 2">
-                            <span class="badge-3d">
-                                <i class="bi bi-box"></i> Vista 3D
-                            </span>
-                        </div>
-                        <div class="product-card-body">
-                            <h5 class="product-title">Puerta Industrial Moderna</h5>
-                            <p class="product-category">Puertas Metálicas</p>
-                            <div class="product-features">
-                                <span class="feature-badge"><i class="bi bi-shield-check"></i> Alta Seguridad</span>
-                                <span class="feature-badge"><i class="bi bi-wrench"></i> Personalizable</span>
+                @foreach ($productos as $item)
+                    <!-- Product 1 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div onclick="window.location.href='{{ route('detalle', ['producto' => $item?->id]) }}'" class="product-card">
+                            <div class="product-image-wrapper">
+                                <img src="{{ asset('storage/'.$item?->imagenesActivas?->get(0)?->url ?? '#') }}" class="product-image-main" alt="Puerta Industrial Moderna">
+                                @if ($item?->imagenesActivas?->get(1))
+                                    <img src="{{ asset('storage/'.$item?->imagenesActivas?->get(1)?->url ?? '#' ) }}" class="product-image-hover" alt="Puerta Industrial Vista 2">
+                                @endif
+                                <span class="badge-3d">
+                                    <i class="bi bi-box"></i> Vista 3D
+                                </span>
+                            </div>
+                            <div class="product-card-body">
+                                <h5 class="product-title">{{ $item?->nombre }}</h5>
+                                <p class="product-category">{{ $item?->descripcion }}</p>
+                                <div class="product-features">
+                                    <span class="feature-badge">
+                                        <i class="bi bi-shield-check"></i> Alta Seguridad
+                                    </span>
+                                    <span class="feature-badge">
+                                        <i class="bi bi-wrench"></i> Personalizable
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Product 2 -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="product-card" onclick="window.location.href='producto.html?id=ventana-industrial-001'">
-                        <div class="product-image-wrapper">
-                            <img src="{{ asset('build/img/industrial-steel-window.jpg') }}" class="product-image-main" alt="Ventana de Acero Industrial">
-                            <img src="{{ asset('build/img/modern-steel-windows-industrial.jpg') }}" class="product-image-hover" alt="Ventana Industrial Vista 2">
-                            <span class="badge-3d">
-                                <i class="bi bi-box"></i> Vista 3D
-                            </span>
-                        </div>
-                        <div class="product-card-body">
-                            <h5 class="product-title">Ventana Industrial de Acero</h5>
-                            <p class="product-category">Ventanas</p>
-                            <div class="product-features">
-                                <span class="feature-badge"><i class="bi bi-sun"></i> Alta Iluminación</span>
-                                <span class="feature-badge"><i class="bi bi-gear"></i> Acabado Premium</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="product-card" onclick="window.location.href='producto.html?id=porton-automatico-001'">
-                        <div class="product-image-wrapper">
-                            <img src="{{ asset('build/img/automatic-metal-gate.jpg') }}" class="product-image-main" alt="Portón Automático">
-                            <img src="{{ asset('build/img/automatic-metal-gate-modern.jpg') }}" class="product-image-hover" alt="Portón Automático Vista 2">
-                            <span class="badge-3d">
-                                <i class="bi bi-box"></i> Vista 3D
-                            </span>
-                        </div>
-                        <div class="product-card-body">
-                            <h5 class="product-title">Portón Automático Moderno</h5>
-                            <p class="product-category">Portones</p>
-                            <div class="product-features">
-                                <span class="feature-badge"><i class="bi bi-cpu"></i> Automático</span>
-                                <span class="feature-badge"><i class="bi bi-phone"></i> Control Remoto</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 4 -->
-                <div class="col-md-6 col-lg-3">
-                    <div class="product-card" onclick="window.location.href='producto.html?id=escalera-flotante-001'">
-                        <div class="product-image-wrapper">
-                            <img src="{{ asset('build/img/floating-metal-staircase-modern.jpg') }}" class="product-image-main" alt="Escalera Flotante">
-                            <img src="{{ asset('build/img/modern-metal-staircase-and-railings-industrial-des.jpg') }}" class="product-image-hover" alt="Escalera Flotante Vista 2">
-                            <span class="badge-3d">
-                                <i class="bi bi-box"></i> Vista 3D
-                            </span>
-                        </div>
-                        <div class="product-card-body">
-                            <h5 class="product-title">Escalera Flotante Minimalista</h5>
-                            <p class="product-category">Escaleras y Barandales</p>
-                            <div class="product-features">
-                                <span class="feature-badge"><i class="bi bi-rulers"></i> Diseño Único</span>
-                                <span class="feature-badge"><i class="bi bi-check-circle"></i> Resistente</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>

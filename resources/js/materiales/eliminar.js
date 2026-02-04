@@ -22,13 +22,11 @@ $(document).on('click', '.btnEliminar', function(){
     const success = (response) => {
         if (response.estado == 'success') {
             $('#modalEliminar').modal('show');
-            $('#eliminarNombre').text(response?.categoria?.nombre ?? '');
-            if (response?.categoria?.productos_activos?.length) {
+            $('#eliminarNombre').text(response?.material?.nombre ?? '');
+            if (response?.material?.productos_activos?.length) {
                 document.getElementById("alertProductos").style.display = "block";
-                $('#eliminarProductos').text(response?.categoria?.productos_activos?.length ?? 0);
             } else {
                 document.getElementById("alertProductos").style.display = "none"
-                $('#eliminarProductos').text(0);
             }
         }
         generalidades.toastrGenerico(response?.estado, response?.mensaje);
@@ -38,7 +36,7 @@ $(document).on('click', '.btnEliminar', function(){
         generalidades.toastrGenerico(response?.estado, response?.mensaje);
     }
 
-    generalidades.get(route('categorias.data', { categoria: id_eliminar }), config, success, error);
+    generalidades.get(route('materiales.data', { material: id_eliminar }), config, success, error);
 });
 
 $(document).on('click', '#btnConfirmarEliminar', function(){
@@ -46,7 +44,7 @@ $(document).on('click', '#btnConfirmarEliminar', function(){
 });
 
 const eliminar = (id) => {
-    let ruta = route('categorias.delete', { 'categoria': id } );
+    let ruta = route('materiales.delete', { 'material': id } );
     let config = {
         "headers": {
             "Accept": generalidades.CONTENT_TYPE_JSON,
@@ -54,21 +52,23 @@ const eliminar = (id) => {
         },
         "method": "DELETE",
         "body": {
-            'categoria': id
+            'material': id
         }
     }
 
     const success = (response) => {
         if (response.estado == 'success') {
             $('.btnCerrarModal').trigger('click');
-            window.listadoCategoria();
+            window.listadoMateriales();
         }
         generalidades.ocultarCargando('body');
         generalidades.toastrGenerico(response?.estado, response?.mensaje);
+        window.generalMateriales();
     }
     const error = (response) => {
         generalidades.ocultarCargando('body');
         generalidades.toastrGenerico(response?.estado, response?.mensaje);
+        window.generalMateriales();
     }
     generalidades.delete(ruta, config, success, error);
     generalidades.mostrarCargando('body');

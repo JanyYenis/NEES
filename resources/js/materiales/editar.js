@@ -147,21 +147,6 @@ function handleUnidadChange() {
 const enviarDatos = (form) => {
     let formData = new FormData(document.getElementById("formEditarMaterial"));
     formData.append('estado', $('#formEditarMaterial #estadoEdit').is(':checked') ? 1 : 2);
-    // Get images
-    const imagenes = []
-    for (let i = 1; i <= 2; i++) {
-        const previewImg = document.getElementById(`previewImg${i}Edit`).src
-        if (previewImg) {
-        imagenes.push(previewImg)
-        }
-    }
-
-    if (imagenes.length === 0) {
-        alert("Por favor agregue al menos una imagen")
-        return
-    }
-
-    formData.append('imagenes', imagenes);
 
     const config = {
         'method': 'POST',

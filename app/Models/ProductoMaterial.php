@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-use App\Classes\Models\Model;
-use App\Traits\Imagenable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class Producto extends Model
+class ProductoMaterial extends Model
 {
-    use Imagenable;
-
-    protected $table = 'productos';
+    protected $table = 'productos_materiales';
     protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $incrementing = false;
@@ -21,13 +18,8 @@ class Producto extends Model
     const ELIMINADO = 0;
 
     protected $fillable = [
-        'nombre',
-        'descripcion',
-        'cod_categoria',
-        'ancho',
-        'alto',
-        'grosor',
-        'color',
+        'cod_producto',
+        'cod_material',
         'estado',
     ];
 
@@ -52,18 +44,8 @@ class Producto extends Model
         });
     }
 
-    public function categoria()
+    public function material()
     {
-        return $this->belongsTo(Categoria::class, 'cod_categoria', 'id');
-    }
-
-    public function materiales()
-    {
-        return $this->hasMany(ProductoMaterial::class, 'cod_producto', 'id');
-    }
-
-    public function materialesActivos()
-    {
-        return $this->materiales()->where('estado', Material::ACTIVO);
+        return $this->belongsTo(Material::class, 'cod_material', 'id');
     }
 }

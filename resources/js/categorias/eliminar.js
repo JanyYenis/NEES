@@ -65,10 +65,12 @@ const eliminar = (id) => {
         }
         generalidades.ocultarCargando('body');
         generalidades.toastrGenerico(response?.estado, response?.mensaje);
+        window.generalCategorias();
     }
     const error = (response) => {
         generalidades.ocultarCargando('body');
         generalidades.toastrGenerico(response?.estado, response?.mensaje);
+        window.generalCategorias();
     }
     generalidades.delete(ruta, config, success, error);
     generalidades.mostrarCargando('body');

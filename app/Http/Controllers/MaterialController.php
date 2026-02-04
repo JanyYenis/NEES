@@ -65,20 +65,31 @@ class MaterialController extends Controller
 
     public function store(Request $request)
     {
-        $datos = $request->all();
+        $datos = $request->except(['imagen_1', 'imagen_2']);
         $material = Material::create($datos);
 
         if (!$material) {
             throw new ErrorException('Error al intentar crear la nueva material.');
         }
 
-        if ($request->has('imagenes')) {
-            foreach ($request->imagenes as $imagen) {
-                $path = $imagen->store('materiales', 'public');
+        foreach ([1, 2] as $posicion) {
+            $campo = "imagen_{$posicion}";
+
+            if ($request->hasFile($campo)) {
+
+                // Inactivar imagen actual de esa posición
+                $material->imagenes()
+                    ->where('orden', $posicion)
+                    ->update(['estado' => Imagen::INACTIVO]);
+
+                $archivo = $request->file($campo);
+                $ruta = $archivo->store('materiales', 'public');
 
                 $material->crearImagen([
-                    'url' => $path,
+                    'url' => $ruta,
                     'tipo' => Imagen::MATERIALES,
+                    'orden' => $posicion,
+                    'estado' => Imagen::ACTIVO,
                 ]);
             }
         }
@@ -125,24 +136,33 @@ class MaterialController extends Controller
 
     public function update(Request $request, Material $material)
     {
-        $datos = $request->all();
-        dd($datos);
+        $datos = $request->except(['imagen_1', 'imagen_2']);
         $actualizar = $material->update($datos);
 
         if (!$actualizar) {
             throw new ErrorException('Error al intentar actualizar la material.');
         }
 
-        if ($request->hasFile('imagen')) {
+        foreach ([1, 2] as $posicion) {
+            $campo = "imagen_{$posicion}";
 
-            $material->inactivarImagenes();
+            if ($request->hasFile($campo)) {
 
-            $path = $request->file('imagen')->store('materiales', 'public');
+                // Inactivar imagen actual de esa posición
+                $material->imagenes()
+                    ->where('orden', $posicion)
+                    ->update(['estado' => Imagen::INACTIVO]);
 
-            $material->crearImagen([
-                'url' => $path,
-                'tipo' => Imagen::MATERIALES,
-            ]);
+                $archivo = $request->file($campo);
+                $ruta = $archivo->store('materiales', 'public');
+
+                $material->crearImagen([
+                    'url' => $ruta,
+                    'tipo' => Imagen::MATERIALES,
+                    'orden' => $posicion,
+                    'estado' => Imagen::ACTIVO,
+                ]);
+            }
         }
 
         return [
@@ -163,6 +183,19 @@ class MaterialController extends Controller
             'estado' => 'success',
             'mesnaje' => 'Datos cargados correctamente.',
             'material' => $material
+        ];
+    }
+
+    public function buscar(Request $request)
+    {
+        $materiales = Material::with('infoEstado', 'infoTipo')
+            ->where('estado', Material::ACTIVO)
+            ->get();
+
+        return [
+            'estado' => 'success',
+            'mensaje' => 'Se cargo correctamente los materiales',
+            'materiales' => $materiales,
         ];
     }
 

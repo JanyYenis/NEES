@@ -37,4 +37,4 @@ import './listado';
 import './crear';
 import './ver';
 import './editar';
-// import './eliminar';
+import './eliminar';

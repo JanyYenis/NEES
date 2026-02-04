@@ -5,7 +5,8 @@
             <label for="nombre" class="form-label">
                 Nombre de la Categoría <span class="text-danger">*</span>
             </label>
-            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $categoria?->nombre ?? '' }}" required>
+            <input type="text" class="form-control" id="nombre" name="nombre"
+                value="{{ $categoria?->nombre ?? '' }}" required>
             <div class="invalid-feedback">Por favor ingrese el nombre de la categoría.</div>
         </div>
 
@@ -22,11 +23,14 @@
 
         <div class="mb-3">
             <label class="form-label">Estado</label>
-            <div class="form-check form-switch form-switch-lg">
-                <input class="form-check-input" type="checkbox" id="estadoEdit" name="estado" value="1" {{ $categoria?->estado == 1 ? 'checked' : '' }}>
-                <label class="form-check-label" for="estadoEdit">
-                    <span class="badge-status-active" id="estadoLabelEdit">{{ $categoria?->estado == 1 ? 'Activo' : 'Inactivo' }}</span>
-                </label>
+            <div class="d-flex align-items-center gap-3">
+                <div class="form-check form-switch form-switch-lg">
+                    <input class="form-check-input" type="checkbox" id="estadoEdit" name="estado"
+                        {{ $categoria?->estado == 1 ? 'checked' : '' }} />
+                </div>
+                <span
+                    class="badge-status {{ $categoria?->estado == 1 ? 'badge-status-active' : 'badge-status-inactive' }}"
+                    id="estadoLabelEdit">{{ $categoria?->estado == 1 ? 'Activo' : 'Inactivo' }}</span>
             </div>
         </div>
     </div>
@@ -38,13 +42,15 @@
             </label>
             <div class="upload-area" id="uploadAreaEdit">
                 <input type="file" id="imagenEdit" name="imagen" accept="image/*" hidden>
-                <div class="upload-placeholder" id="uploadPlaceholderEdit" style="display: {{ $material?->imagenActiva ? 'none' : 'block' }};">
+                <div class="upload-placeholder" id="uploadPlaceholderEdit"
+                    style="display: {{ $categoria?->imagenActiva ? 'none' : 'block' }};">
                     <i class="bi bi-cloud-upload"></i>
                     <p>Haz clic o arrastra una imagen</p>
                     <small>JPG, PNG o WEBP (máx. 2MB)</small>
                 </div>
                 <div class="image-preview" id="imagePreviewEdit">
-                    <img src="{{ asset('storage/'.$categoria?->imagenActiva?->url ?? '#') }}" alt="Preview" id="previewImgEdit">
+                    <img src="{{ asset('storage/' . $categoria?->imagenActiva?->url ?? '#') }}" alt="Preview"
+                        id="previewImgEdit">
                     <button type="button" class="btn-remove-image" id="removeImageEdit">
                         <i class="bi bi-x"></i>
                     </button>

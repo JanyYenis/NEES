@@ -23,7 +23,7 @@ $(document).on("click", ".btnEditar", function () {
 const cargarDatos = (id) => {
     const ruta = route(rutaEditar, { "categoria": id });
     generalidades.mostrarCargando('body');
-    generalidades.ejecutar('GET', ruta, 'body', modalEditar, seccionEditar, function(){
+    generalidades.ejecutar('GET', ruta, 'body', modalEditar, seccionEditar, function () {
         iniciarComponentes(formEditarCategoria);
     });
 }
@@ -59,6 +59,18 @@ const iniciarComponentes = (form = "") => {
     document.getElementById("removeImageEdit").addEventListener("click", (e) => {
         e.stopPropagation()
         clearImage()
+    });
+
+    // Status toggle
+    document.getElementById("estadoEdit").addEventListener("change", function () {
+        const label = document.getElementById("estadoLabelEdit")
+        if (this.checked) {
+            label.textContent = "Activo"
+            label.className = "badge-status badge-status-active"
+        } else {
+            label.textContent = "Inactivo"
+            label.className = "badge-status badge-status-inactive"
+        }
     })
 }
 

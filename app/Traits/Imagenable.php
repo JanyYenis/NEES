@@ -22,7 +22,9 @@ trait Imagenable
      */
     public function imagenesActivas()
     {
-        return $this->imagenes()->where('estado', Imagen::ACTIVO);
+        return $this->imagenes()
+            ->where('estado', Imagen::ACTIVO)
+            ->orderBy('orden');
     }
 
     /**
@@ -40,7 +42,9 @@ trait Imagenable
      */
     public function imagenActiva()
     {
-        return $this->imagen()->where('estado', Imagen::ACTIVO);
+        return $this->imagen()
+            ->where('estado', Imagen::ACTIVO)
+            ->orderBy('orden');
     }
 
     /**

@@ -39,7 +39,19 @@ const iniciarComponentes = (form = "") => {
     document.getElementById("removeImage").addEventListener("click", (e) => {
         e.stopPropagation()
         clearImage()
-    })
+    });
+
+    // Status toggle
+    document.getElementById("estado").addEventListener("change", function () {
+        const label = document.getElementById("estadoLabel")
+        if (this.checked) {
+            label.textContent = "Activo"
+            label.className = "badge-status badge-status-active"
+        } else {
+            label.textContent = "Inactivo"
+            label.className = "badge-status badge-status-inactive"
+        }
+    });
 }
 
 // Handle image upload

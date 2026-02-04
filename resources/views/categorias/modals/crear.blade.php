@@ -33,12 +33,12 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Estado</label>
-                                <div class="form-check form-switch form-switch-lg">
-                                    <input class="form-check-input" type="checkbox" id="estado" name="estado" value="1"
-                                        checked>
-                                    <label class="form-check-label" for="estado">
-                                        <span class="badge-status-active" id="estadoLabel">Activo</span>
-                                    </label>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="form-check form-switch form-switch-lg">
+                                        <input class="form-check-input" type="checkbox" id="estado" name="estado"
+                                            checked />
+                                    </div>
+                                    <span class="badge-status badge-status-active" id="estadoLabel">Activo</span>
                                 </div>
                             </div>
                         </div>

@@ -11,4 +11,5 @@ Route::get('/ver/{material}', [MaterialController::class, 'show'])->name('show')
 Route::get('/editar/{material}', [MaterialController::class, 'edit'])->name('edit');
 Route::post('/actualizar/{material}', [MaterialController::class, 'update'])->name('update');
 Route::get('/data/{material}', [MaterialController::class, 'data'])->name('data');
+Route::get('/buscar', [MaterialController::class, 'buscar'])->name('buscar');
 Route::delete('/eliminar/{material}', [MaterialController::class, 'delete'])->name('delete');

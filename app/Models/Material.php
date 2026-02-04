@@ -75,4 +75,14 @@ class Material extends Model
     {
         return darConceptos(self::TC_TIPO_UNIDAD, $infoTipoConcepto);
     }
+
+    public function productos()
+    {
+        return $this->hasMany(ProductoMaterial::class, 'cod_material', 'id');
+    }
+
+    public function productosActivos()
+    {
+        return $this->productos()->where('estado', ProductoMaterial::ACTIVO);
+    }
 }
