@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">
+                <h5 class="modal-title text-white" id="modalTitle">
                     <i class="bi bi-plus-circle text-white fs-3"></i> Nueva Categoría
                 </h5>
                 <button type="button" class="btn-close btnCerrarModal" data-bs-dismiss="modal"></button>

@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">
+                <h5 class="modal-title text-white">
                     <i class="bi bi-eye text-white fs-3"></i> Detalles de Categoría
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>

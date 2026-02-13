@@ -150,7 +150,7 @@
             </div>
             <hr class="my-4 border-secondary">
             <div class="text-center text-white-50">
-                <p class="mb-0">&copy; {{ date('Y') }} NEES. Todos los derechos reservados.</p>
+                <p class="mb-0">&copy; {{ date('Y') }} GIJAC WEB. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
