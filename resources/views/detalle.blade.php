@@ -1,8 +1,11 @@
 @extends('layouts.app')
 
-@section('content')
+@section('imports')
+    <script>window.producto = {!! json_encode($producto) !!}; </script>
     @vite(['resources/css/main.css', 'resources/css/producto.css', 'resources/js/producto.js'])
+@endsection
 
+@section('content')
     <!-- Product Header -->
     <section class="product-header">
         <div class="blueprint-grid"></div>
@@ -52,7 +55,7 @@
                     </div>
 
                     <!-- 3D Viewer -->
-                    <div class="viewer-3d mb-4">
+                    <div class="viewer-3d mb-4 d-none">
                         <div class="viewer-header d-flex justify-content-between align-items-center mb-3">
                             <h4 class="mb-0">Vista 3D Interactiva</h4>
                             <div class="viewer-controls">
@@ -73,21 +76,23 @@
                         </div>
                     </div>
 
-                    <!-- Before/After Slider -->
-                    <div class="before-after-section mb-4">
-                        <h4 class="mb-3">Antes y Después de la Instalación</h4>
-                        <div class="before-after-container">
-                            <img src="{{ asset('build/img/modern-industrial-metal-door-in-architectural-sett.jpg') }}"
-                                alt="Antes" class="before-image">
-                            <img id="afterImage" src="{{ asset('build/img/empty-doorway-before.jpg') }}" alt="Después"
-                                class="after-image">
-                            <input type="range" min="0" max="100" value="50" class="slider"
-                                id="beforeAfterSlider">
-                            <div class="slider-button"></div>
-                            <div class="before-label">ANTES</div>
-                            <div class="after-label">DESPUÉS</div>
+                    @if ($producto->imagenAntes && $producto->imagenDespues)
+                        <!-- Before/After Slider -->
+                        <div class="before-after-section mb-4">
+                            <h4 class="mb-3">Antes y Después de la Instalación</h4>
+                            <div class="before-after-container">
+                                <img src="{{ asset('storage/'.$producto->imagenAntes?->url ?? '#') }}"
+                                    alt="Antes" class="before-image">
+                                <img id="afterImage" src="{{ asset('storage/'.$producto->imagenDespues?->url ?? '#') }}" alt="Después"
+                                    class="after-image">
+                                <input type="range" min="0" max="100" value="50" class="slider"
+                                    id="beforeAfterSlider">
+                                <div class="slider-button"></div>
+                                <div class="before-label">ANTES</div>
+                                <div class="after-label">DESPUÉS</div>
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
                     <!-- Size Comparator -->
                     <div class="size-comparator mb-4">

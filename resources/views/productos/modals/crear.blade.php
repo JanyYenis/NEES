@@ -240,6 +240,16 @@
                                 </div>
                                 <div class="invalid-feedback d-block" id="imagenesError"></div>
                             </div>
+                            <div class="form-section">
+                                <div class="">
+                                    <label for="">Imágen del antes</label>
+                                    <input type="file" name="antes" class="form-control" placeholder="Antes">
+                                </div>
+                                <div class="mt-2">
+                                    <label for="">Imágen del despues</label>
+                                    <input type="file" name="despues" class="form-control" placeholder="Despues">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

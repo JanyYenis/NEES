@@ -1,8 +1,13 @@
 @extends('layouts.app')
 
-{{-- {{ route('ver-productosdetalle', ['categoria' => $item?->id]) }} --}}
-@section('content')
+@section('imports')
+    <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
+    <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
+    <script>window.categoria = {!! json_encode($categoria) !!};</script>
     @vite(['resources/css/main.css', 'resources/css/categoria.css', 'resources/js/categoria.js'])
+@endsection
+
+@section('content')
     <!-- Category Hero Header -->
     <section class="category-hero">
         <div class="hero-bg-image" id="heroBgImage"></div>
@@ -14,21 +19,20 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
                     <li class="breadcrumb-item"><a href="#">Categorias</a></li>
-                    <li class="breadcrumb-item active" id="breadcrumbCategory">Puertas Metalicas</li>
+                    <li class="breadcrumb-item active" id="breadcrumbCategory">{{ $categoria?->nombre ?? 'N/A' }}</li>
                 </ol>
             </nav>
 
-            <h1 class="display-3 fw-bold text-white mb-3" id="categoryTitle">Puertas Metalicas</h1>
+            <h1 class="display-3 fw-bold text-white mb-3" id="categoryTitle">{{ $categoria?->nombre ?? 'N/A' }}</h1>
             <p class="lead text-white-50 mb-0" id="categoryDescription">
-                Disenos industriales con maxima seguridad y acabados premium. Fabricacion a medida para todo tipo de
-                proyectos residenciales y comerciales.
+                {{ $categoria?->descripcion ?? 'N/A' }}
             </p>
 
             <!-- Category Stats -->
             <div class="category-stats mt-4">
                 <div class="stat-item">
                     <i class="bi bi-box-seam"></i>
-                    <span id="productCount">12 Productos</span>
+                    <span id="productCount">{{ count($categoria->productosActivos) }} Productos</span>
                 </div>
                 <div class="stat-item">
                     <i class="bi bi-star-fill"></i>
@@ -140,36 +144,10 @@
     <!-- Products Grid Section -->
     <section class="products-section py-5">
         <div class="container">
-            <!-- Results Count -->
-            <div class="results-info mb-4">
-                <p class="mb-0 text-muted">Mostrando <span id="showingCount">12</span> de <span id="totalCount">12</span>
-                    productos</p>
-            </div>
-
             <!-- Products Grid -->
-            <div class="products-grid" id="productsContainer">
+            <div class="products-grid seccionListadoProductos">
                 <!-- Products will be loaded by JS -->
             </div>
-
-            <!-- Empty State -->
-            <div class="empty-state" id="emptyState" style="display: none;">
-                <div class="empty-icon">
-                    <i class="bi bi-inbox"></i>
-                </div>
-                <h3>No se encontraron productos</h3>
-                <p class="text-muted">Aun no hay productos disponibles en esta categoria o no coinciden con tu busqueda.
-                </p>
-                <a href="index.html" class="btn btn-primary mt-3">
-                    <i class="bi bi-arrow-left me-2"></i>Volver al inicio
-                </a>
-            </div>
-
-            <!-- Pagination -->
-            <nav class="pagination-wrapper mt-5" id="paginationWrapper">
-                <ul class="pagination justify-content-center" id="pagination">
-                    <!-- Pagination will be loaded by JS -->
-                </ul>
-            </nav>
         </div>
     </section>
 @endsection

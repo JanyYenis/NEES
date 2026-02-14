@@ -1,9 +1,36 @@
+const seccionListadoProductos = ".seccionListadoProductos";
+const btnPagina = ".btnPagina";
+const rutaCargarListadoProductos = "listado-productos";
+var paginaActual = 1;
+
 // Category Page JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize page
-    initCategoryPage();
+    // initCategoryPage();
+    cargarListado();
 });
+
+$(document).on("click", btnPagina, function () {
+    let pagina = $(this).attr("data-pagina");
+    if (pagina) {
+        cargarListado(pagina);
+    }
+});
+
+window.cargarListado = (pagina = 1) => {
+    generalidades.mostrarCargando(seccionListadoProductos);
+    let datos = new FormData();
+    datos = generalidades.formToJson(datos);
+    datos.pagina = pagina;
+    datos.categoria = window.categoria.id;
+    const ruta = route(rutaCargarListadoProductos, datos);
+    generalidades.refrescarSeccion(null, ruta, seccionListadoProductos, function (response) {
+        generalidades.ocultarCargando(seccionListadoProductos);
+        paginaActual = pagina;
+        KTMenu.createInstances();
+    });
+}
 
 // Categories Data (simulated - would come from Laravel)
 const categoriesData = {
@@ -201,16 +228,16 @@ function initCategoryPage() {
     if (cat && categoriesData[cat]) {
         currentCategory = cat;
     }
-    
+
     // Update header
     updateCategoryHeader();
-    
+
     // Load products
     loadProducts();
-    
+
     // Setup event listeners
     setupEventListeners();
-    
+
     // Setup navbar scroll behavior
     setupNavbarScroll();
 }
@@ -218,15 +245,15 @@ function initCategoryPage() {
 // Update Category Header
 function updateCategoryHeader() {
     const category = categoriesData[currentCategory];
-    
+
     document.getElementById('categoryTitle').textContent = category.title;
     document.getElementById('categoryDescription').textContent = category.description;
     document.getElementById('breadcrumbCategory').textContent = category.title;
     document.getElementById('heroBgImage').style.backgroundImage = `url(${category.image})`;
-    
+
     // Update page title
     document.title = `${category.title} | MetalWorks - Catalogo de Estructuras Metalicas`;
-    
+
     // Update product count
     const filteredProducts = getFilteredProducts();
     document.getElementById('productCount').textContent = `${filteredProducts.length} Productos`;
@@ -235,21 +262,21 @@ function updateCategoryHeader() {
 // Get Filtered Products
 function getFilteredProducts() {
     let products = productsData.filter(p => p.category === currentCategory);
-    
+
     // Apply search filter
     if (currentFilters.search) {
         const searchTerm = currentFilters.search.toLowerCase();
-        products = products.filter(p => 
-            p.name.toLowerCase().includes(searchTerm) || 
+        products = products.filter(p =>
+            p.name.toLowerCase().includes(searchTerm) ||
             p.description.toLowerCase().includes(searchTerm)
         );
     }
-    
+
     // Apply color filter
     if (currentFilters.color !== 'all') {
         products = products.filter(p => p.color === currentFilters.color);
     }
-    
+
     // Apply sorting
     switch (currentFilters.sort) {
         case 'name-asc':
@@ -263,7 +290,7 @@ function getFilteredProducts() {
             products.sort((a, b) => new Date(b.date) - new Date(a.date));
             break;
     }
-    
+
     return products;
 }
 
@@ -273,17 +300,17 @@ function loadProducts() {
     const container = document.getElementById('productsContainer');
     const emptyState = document.getElementById('emptyState');
     const paginationWrapper = document.getElementById('paginationWrapper');
-    
+
     // Update counts
     const totalProducts = products.length;
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = Math.min(startIndex + itemsPerPage, totalProducts);
     const paginatedProducts = products.slice(startIndex, endIndex);
-    
+
     document.getElementById('showingCount').textContent = paginatedProducts.length;
     document.getElementById('totalCount').textContent = totalProducts;
     document.getElementById('productCount').textContent = `${totalProducts} Productos`;
-    
+
     // Show empty state if no products
     if (totalProducts === 0) {
         container.innerHTML = '';
@@ -291,27 +318,27 @@ function loadProducts() {
         paginationWrapper.style.display = 'none';
         return;
     }
-    
+
     emptyState.style.display = 'none';
     paginationWrapper.style.display = 'block';
-    
+
     // Update view class
     container.classList.toggle('list-view', currentView === 'list');
-    
+
     // Generate product cards
     container.innerHTML = paginatedProducts.map(product => `
         <div class="product-card" onclick="goToProduct('${product.id}')">
             <div class="product-image-wrapper">
-                <img src="${product.image}" alt="${product.name}" class="product-image" 
+                <img src="${product.image}" alt="${product.name}" class="product-image"
                      onerror="this.parentElement.innerHTML='<div class=\\'placeholder-image\\'><i class=\\'bi bi-image\\'></i></div>'">
-                
+
                 <div class="product-badges">
                     ${product.has3D ? '<span class="badge-3d"><i class="bi bi-box"></i> 3D</span>' : ''}
                     ${product.isNew ? '<span class="badge-new">Nuevo</span>' : ''}
                 </div>
-                
+
                 <span class="badge-color" style="background-color: ${product.colorHex};" title="${product.color}"></span>
-                
+
                 <div class="product-overlay">
                     <button class="btn-view-details">
                         <i class="bi bi-eye me-2"></i>Ver Detalles
@@ -330,7 +357,7 @@ function loadProducts() {
             </div>
         </div>
     `).join('');
-    
+
     // Update pagination
     updatePagination(totalProducts);
 }
@@ -339,14 +366,14 @@ function loadProducts() {
 function updatePagination(totalItems) {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
     const pagination = document.getElementById('pagination');
-    
+
     if (totalPages <= 1) {
         pagination.innerHTML = '';
         return;
     }
-    
+
     let html = '';
-    
+
     // Previous button
     html += `
         <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
@@ -355,23 +382,23 @@ function updatePagination(totalItems) {
             </a>
         </li>
     `;
-    
+
     // Page numbers
     const maxVisiblePages = 5;
     let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
     let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-    
+
     if (endPage - startPage + 1 < maxVisiblePages) {
         startPage = Math.max(1, endPage - maxVisiblePages + 1);
     }
-    
+
     if (startPage > 1) {
         html += `<li class="page-item"><a class="page-link" href="#" onclick="changePage(1); return false;">1</a></li>`;
         if (startPage > 2) {
             html += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
         }
     }
-    
+
     for (let i = startPage; i <= endPage; i++) {
         html += `
             <li class="page-item ${i === currentPage ? 'active' : ''}">
@@ -379,14 +406,14 @@ function updatePagination(totalItems) {
             </li>
         `;
     }
-    
+
     if (endPage < totalPages) {
         if (endPage < totalPages - 1) {
             html += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
         }
         html += `<li class="page-item"><a class="page-link" href="#" onclick="changePage(${totalPages}); return false;">${totalPages}</a></li>`;
     }
-    
+
     // Next button
     html += `
         <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
@@ -395,7 +422,7 @@ function updatePagination(totalItems) {
             </a>
         </li>
     `;
-    
+
     pagination.innerHTML = html;
 }
 
@@ -403,10 +430,10 @@ function updatePagination(totalItems) {
 function changePage(page) {
     const totalPages = Math.ceil(getFilteredProducts().length / itemsPerPage);
     if (page < 1 || page > totalPages) return;
-    
+
     currentPage = page;
     loadProducts();
-    
+
     // Smooth scroll to products section
     document.querySelector('.products-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
@@ -417,13 +444,13 @@ function setupEventListeners() {
     const searchInput = document.getElementById('searchInput');
     const clearSearch = document.getElementById('clearSearch');
     let searchTimeout;
-    
+
     searchInput.addEventListener('input', function() {
         clearTimeout(searchTimeout);
         const value = this.value.trim();
-        
+
         clearSearch.style.display = value ? 'block' : 'none';
-        
+
         searchTimeout = setTimeout(() => {
             currentFilters.search = value;
             currentPage = 1;
@@ -431,7 +458,7 @@ function setupEventListeners() {
             updateActiveFilters();
         }, 300);
     });
-    
+
     clearSearch.addEventListener('click', function() {
         searchInput.value = '';
         currentFilters.search = '';
@@ -440,57 +467,57 @@ function setupEventListeners() {
         loadProducts();
         updateActiveFilters();
     });
-    
+
     // Filter options
     document.querySelectorAll('.filter-option').forEach(option => {
         option.addEventListener('click', function(e) {
             e.preventDefault();
             const filter = this.dataset.filter;
             const value = this.dataset.value;
-            
+
             currentFilters[filter] = value;
             currentPage = 1;
-            
+
             // Update active state
             this.closest('.dropdown-menu').querySelectorAll('.filter-option').forEach(opt => {
                 opt.classList.remove('active');
             });
             this.classList.add('active');
-            
+
             loadProducts();
             updateActiveFilters();
         });
     });
-    
+
     // Sort options
     document.querySelectorAll('.sort-option').forEach(option => {
         option.addEventListener('click', function(e) {
             e.preventDefault();
             currentFilters.sort = this.dataset.sort;
             currentPage = 1;
-            
+
             // Update active state
             document.querySelectorAll('.sort-option').forEach(opt => {
                 opt.classList.remove('active');
             });
             this.classList.add('active');
-            
+
             loadProducts();
         });
     });
-    
+
     // View toggle
     document.querySelectorAll('.btn-view').forEach(btn => {
         btn.addEventListener('click', function() {
             currentView = this.dataset.view;
-            
+
             document.querySelectorAll('.btn-view').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
-            
+
             loadProducts();
         });
     });
-    
+
     // Clear all filters
     document.getElementById('clearAllFilters').addEventListener('click', function() {
         currentFilters = {
@@ -499,21 +526,21 @@ function setupEventListeners() {
             sort: 'recent'
         };
         currentPage = 1;
-        
+
         // Reset UI
         searchInput.value = '';
         clearSearch.style.display = 'none';
-        
+
         document.querySelectorAll('.filter-option').forEach(opt => {
             opt.classList.remove('active');
             if (opt.dataset.value === 'all') opt.classList.add('active');
         });
-        
+
         document.querySelectorAll('.sort-option').forEach(opt => {
             opt.classList.remove('active');
             if (opt.dataset.sort === 'recent') opt.classList.add('active');
         });
-        
+
         loadProducts();
         updateActiveFilters();
     });
@@ -523,18 +550,18 @@ function setupEventListeners() {
 function updateActiveFilters() {
     const container = document.getElementById('activeFilters');
     const tagsContainer = document.getElementById('activeFiltersTags');
-    
+
     const hasFilters = currentFilters.search || currentFilters.color !== 'all';
-    
+
     if (!hasFilters) {
         container.style.display = 'none';
         return;
     }
-    
+
     container.style.display = 'flex';
-    
+
     let tags = '';
-    
+
     if (currentFilters.search) {
         tags += `
             <span class="filter-tag">
@@ -546,7 +573,7 @@ function updateActiveFilters() {
             </span>
         `;
     }
-    
+
     if (currentFilters.color !== 'all') {
         const colorNames = {
             'negro': 'Negro',
@@ -564,7 +591,7 @@ function updateActiveFilters() {
             </span>
         `;
     }
-    
+
     tagsContainer.innerHTML = tags;
 }
 
@@ -581,7 +608,7 @@ function removeFilter(filter) {
             if (opt.dataset.value === 'all') opt.classList.add('active');
         });
     }
-    
+
     currentPage = 1;
     loadProducts();
     updateActiveFilters();
@@ -601,7 +628,7 @@ function requestQuote(productId) {
 // Setup Navbar Scroll Behavior
 function setupNavbarScroll() {
     const navbar = document.querySelector('.navbar');
-    
+
     window.addEventListener('scroll', function() {
         if (window.scrollY > 50) {
             navbar.style.background = 'rgba(10, 10, 10, 0.98)';

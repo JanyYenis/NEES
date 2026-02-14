@@ -18,7 +18,7 @@
                         <div class="carousel-caption">
                             <h1 class="display-3 fw-bold mb-3">{{ $item?->nombre ?? '' }}</h1>
                             <p class="lead mb-4">{{ $item?->descripcion ?? '' }}</p>
-                            <a href="{{ route('ver-productos') }}" class="btn btn-primary btn-lg">Ver Catálogo</a>
+                            <a href="{{ route('ver-productos', ['categoria' => $item?->id]) }}" class="btn btn-primary btn-lg">Ver Catálogo</a>
                         </div>
                     </div>
                 @endforeach
@@ -97,7 +97,7 @@
                             <i class="bi bi-hammer"></i>
                         </div>
                         <h5 class="mt-3">Fabricación Experta</h5>
-                        <p class="text-white-50">Más de 15 años de experiencia en estructuras metálicas</p>
+                        <p class="text-white-50">Más de 3 años de experiencia en estructuras metálicas</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">

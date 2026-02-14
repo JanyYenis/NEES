@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\ErrorException;
 use App\Models\Categoria;
 use App\Models\Imagen;
+use App\Models\ImagenProducto;
 use App\Models\Producto;
 use App\Models\ProductoMaterial;
 use Illuminate\Http\Request;
@@ -104,6 +105,28 @@ class ProductoController extends Controller
                     'estado' => Imagen::ACTIVO,
                 ]);
             }
+        }
+
+        if ($request->hasFile('antes')) {
+                $ruta = $request->antes->store('productos', 'public');
+
+                ImagenProducto::create([
+                    'cod_producto' => $producto->id,
+                    'url' => $ruta,
+                    'orden' => ImagenProducto::ANTES,
+                    'estado' => ImagenProducto::ACTIVO,
+                ]);
+        }
+
+        if ($request->hasFile('despues')) {
+                $ruta = $request->despues->store('productos', 'public');
+
+                ImagenProducto::create([
+                    'cod_producto' => $producto->id,
+                    'url' => $ruta,
+                    'orden' => ImagenProducto::DESPUES,
+                    'estado' => ImagenProducto::ACTIVO,
+                ]);
         }
 
         return [

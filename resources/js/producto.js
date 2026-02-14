@@ -292,7 +292,19 @@ function submitQuote() {
 // Initialize page
 document.addEventListener("DOMContentLoaded", () => {
     // loadProductData()
-    console.log("[v0] Product page initialized")
+    if (window.producto) {
+        // if (window.producto?.cod_categoria != "9c988c72-1f78-4452-9b8a-fe3422fe073c") {
+        //     $('#doorOutline').addClass('no-before');
+        // } else {
+        //     $('#doorOutline').removeClass('no-before');
+        // }
+
+        $('#doorOutline').css('width', (parseInt(window.producto?.ancho) || 0) + 'px')
+            .css('height', (parseInt(window.producto?.alto) || 0) + 'px')
+            .addClass('no-before');
+
+    }
+
 })
 
 // Navbar scroll effect (same as main.js)

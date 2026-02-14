@@ -66,4 +66,34 @@ class Producto extends Model
     {
         return $this->materiales()->where('estado', Material::ACTIVO);
     }
+
+    public function imagenesProductos()
+    {
+        return $this->hasMany(ImagenProducto::class, 'cod_producto', 'id');
+    }
+
+    public function imagenProducto()
+    {
+        return $this->hasOne(ImagenProducto::class, 'cod_producto', 'id');
+    }
+
+    public function imagenesProductosActivos()
+    {
+        return $this->imagenesProductos()->where('estado', ImagenProducto::ACTIVO);
+    }
+
+    public function imagenProductoActivo()
+    {
+        return $this->imagenProducto()->where('estado', ImagenProducto::ACTIVO);
+    }
+
+    public function imagenAntes()
+    {
+        return $this->imagenProductoActivo()->where('orden', ImagenProducto::ANTES);
+    }
+
+    public function imagenDespues()
+    {
+        return $this->imagenProductoActivo()->where('orden', ImagenProducto::DESPUES);
+    }
 }

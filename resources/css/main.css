@@ -436,3 +436,9 @@ body {
 .iti__country-name {
     color: #2a2a2a !important;
 }
+
+i.bi, i[class*=" fonticon-"], i[class*=" la-"], i[class^=fonticon-], i[class^=la-] {
+    line-height: normal;        /* o inherit */
+    font-size: inherit;         /* hereda del padre */
+    color: inherit;             /* hereda del padre */
+}
