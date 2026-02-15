@@ -122,17 +122,18 @@
                     <h5 class="fw-bold mb-4">NEES</h5>
                     <p class="text-white-50">Especialistas en estructuras metálicas de alta calidad. Diseño, fabricación e instalación profesional.</p>
                     <div class="social-links mt-3">
-                        <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
+                        <a href="https://www.facebook.com/enrique.escobar.482359?locale=es_LA" class="social-link"><i class="bi bi-facebook"></i></a>
+                        <a href="https://www.tiktok.com/@enriquescobar4" class="social-link"><i class="bi bi-tiktok"></i></a>
+                        {{-- <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
                         <a href="#" class="social-link"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a> --}}
                     </div>
                 </div>
                 <div class="col-md-4">
                     <h5 class="fw-bold mb-4">Contacto</h5>
                     <div class="contact-info">
                         <p><i class="bi bi-telephone me-2"></i> +57 (316) 521-2425</p>
-                        <p><i class="bi bi-envelope me-2"></i> contacto@metalworks.com</p>
+                        <p><i class="bi bi-envelope me-2"></i> escobarenrique108@gmail.com</p>
                         <p><i class="bi bi-geo-alt me-2"></i> Cali - Valle del Cauca, Colombia</p>
                         <p><i class="bi bi-clock me-2"></i> Lun - Vie: 9:00 AM - 4:30 PM | Sab: 9:00 AM - 12:00 PM</p>
                     </div>

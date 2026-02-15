@@ -66,7 +66,7 @@
                     <div class="col-lg-8">
                         <div class="d-flex flex-wrap gap-3 justify-content-lg-end">
                             <!-- Color Filter -->
-                            <div class="filter-dropdown">
+                            <div class="filter-dropdown d-none">
                                 <button class="btn btn-filter dropdown-toggle" type="button" data-bs-toggle="dropdown">
                                     <i class="bi bi-palette me-2"></i>Color
                                 </button>
@@ -111,10 +111,10 @@
                                     <i class="bi bi-sort-down me-2"></i>Ordenar
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item sort-option active" data-sort="recent">Mas recientes</a>
+                                    <li><a class="dropdown-item sort-option active" data-sort="1">Mas recientes</a>
                                     </li>
-                                    <li><a class="dropdown-item sort-option" data-sort="name-asc">Nombre A-Z</a></li>
-                                    <li><a class="dropdown-item sort-option" data-sort="name-desc">Nombre Z-A</a></li>
+                                    <li><a class="dropdown-item sort-option" data-sort="2">Nombre A-Z</a></li>
+                                    <li><a class="dropdown-item sort-option" data-sort="3">Nombre Z-A</a></li>
                                 </ul>
                             </div>
 
@@ -123,9 +123,9 @@
                                 <button class="btn btn-view active" data-view="grid" title="Vista en cuadricula">
                                     <i class="bi bi-grid-3x3-gap-fill"></i>
                                 </button>
-                                <button class="btn btn-view" data-view="list" title="Vista en lista">
+                                {{-- <button class="btn btn-view" data-view="list" title="Vista en lista">
                                     <i class="bi bi-list-ul"></i>
-                                </button>
+                                </button> --}}
                             </div>
                         </div>
                     </div>

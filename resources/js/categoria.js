@@ -23,6 +23,8 @@ window.cargarListado = (pagina = 1) => {
     let datos = new FormData();
     datos = generalidades.formToJson(datos);
     datos.pagina = pagina;
+    datos.buscar = $('#searchInput').val() ?? '';
+    datos.orden = $('.sort-option.active').attr('data-sort') ?? 1;
     datos.categoria = window.categoria.id;
     const ruta = route(rutaCargarListadoProductos, datos);
     generalidades.refrescarSeccion(null, ruta, seccionListadoProductos, function (response) {
@@ -31,6 +33,16 @@ window.cargarListado = (pagina = 1) => {
         KTMenu.createInstances();
     });
 }
+
+$(document).on('input', '#searchInput', function() {
+    cargarListado();
+});
+
+$(document).on('click', '.sort-option', function() {
+    $('.sort-option.active').removeClass('active');
+    $(this).addClass('active');
+    cargarListado();
+});
 
 // Categories Data (simulated - would come from Laravel)
 const categoriesData = {

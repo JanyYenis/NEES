@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PrincipalController;
 use App\Models\Categoria;
 use App\Models\Producto;
 use Illuminate\Support\Facades\Auth;
@@ -35,25 +36,8 @@ Route::get('/ver-productos/{categoria}', function (Request $request, Categoria $
     return view('productos', $info);
 })->name('ver-productos');
 
-Route::get('/listado-productos/{categoria}', function (Request $request, Categoria $categoria) {
-    $pagina = $request->pagina ?? 1;
-    $cantidad = $request->cantidad_pagina ?? 6;
-
-    $productosQuery = Producto::where('cod_categoria', $categoria->id)
-        ->where('estado', Producto::ACTIVO)
-        ->orderByDesc('created_at');
-
-    $productos = $productosQuery->paginate($cantidad, ["*"], "productos", $pagina);
-    $info['ultimaPagina'] = $productos->lastPage();
-    $info["productos"] = $productos;
-    $info["categoria"] = $categoria;
-    $info['paginaActual'] = $pagina;
-
-    return [
-        "estado" => "success",
-        "html" => view("listado", $info)->render()
-    ];
-})->name('listado-productos');
+Route::get('/listado-productos/{categoria}', [PrincipalController::class, 'listadoProductos'])
+    ->name('listado-productos');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

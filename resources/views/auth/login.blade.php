@@ -92,7 +92,7 @@
                                 <i class="bi bi-person-circle"></i>
                             </div>
                             <h2 class="fw-bold mt-3 mb-2">Iniciar Sesión</h2>
-                            <p class="text-white-50">Accede a tu cuenta de MetalWorks</p>
+                            <p class="text-white-50">Accede a tu cuenta de NEES</p>
                         </div>
 
                         <!-- Login Form -->
