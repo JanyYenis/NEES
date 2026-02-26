@@ -115,7 +115,7 @@
     @yield('content')
 
     <!-- Footer -->
-    <footer id="contacto" class="footer">
+    <footer id="contacto" class="footer" style="position: relative;">
         <div class="container py-5">
             <div class="row g-4">
                 <div class="col-md-4">

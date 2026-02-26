@@ -145,7 +145,7 @@
     <section class="products-section py-5">
         <div class="container">
             <!-- Products Grid -->
-            <div class="products-grid seccionListadoProductos">
+            <div class="seccionListadoProductos">
                 <!-- Products will be loaded by JS -->
             </div>
         </div>
